@@ -87,6 +87,11 @@ export default class VoiceSearch extends Component {
                 })
                 this.props.passError(response.data.err);
             }
+        }).catch((err) => {
+            this.setState({
+                progress: 'SEARCH',
+            })
+            this.props.passError("An error has occured. Please try again later.");
         })
     }
 
@@ -115,6 +120,11 @@ export default class VoiceSearch extends Component {
                     placeholder: 'Search for anime',
                 })
             }
+        }).catch((err) => {
+            this.setState({
+                progress: 'PICK',
+            })
+            this.props.passError("An error has occured. Please try again later.");
         })
     }
 
