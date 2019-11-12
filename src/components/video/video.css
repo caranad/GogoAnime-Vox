@@ -1,0 +1,22 @@
+.videoContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    width: 100%;
+    height: 0%;
+    text-align: center;
+    display: none;
+}
+
+.videoContainer .videoContainerClose {
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+#myIframe {
+    margin-top: 25px;
+}

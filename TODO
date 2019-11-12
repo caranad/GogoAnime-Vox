@@ -1,0 +1,16 @@
+# Front end
+- Fix front end, make it beautiful with animations and stuff
+- Generate error messages [done]
+- Be able to get an episode and display it on screen (e.g. GET Sword Art Online EPISODE 10) [done]
+- Generate states (GET ANIME -> DONE, FIND ANIME -> SEARCH ANIME -> DONE) [done]
+- Pass in no-dub option (will filter out dubbed anime) [done]
+- Add 'HELP' section [done]
+
+# Back end
+- Make code elegant and readable
+- Remove movies (defined as results with only 1 episode)
+- Get server.js up and running (use npm anime-scraper) [done]
+- GET <anime name> EPISODE <episode number> - redirect to the video link of that episode [done]
+
+# Deploy to Heroku
+- Heroku 
