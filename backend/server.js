@@ -24,7 +24,7 @@ app.post('/search', (req, res) => {
     const anime_series = req.body.anime.trim();
     const episode_id = parseInt(req.body.episode_id.trim());
     const includeDub = req.body.includeDub;
-    let choice = req.body.choice && parseInt(req.body.choice.trim()) || undefined;
+    let choice = req.body.choice && parseInt(req.body.choice) || undefined;
 
     if (!choice) {
         asearch.search(anime_series).then((results) => {

@@ -20,11 +20,6 @@ export default class VoiceSearch extends Component {
     animeSearchService = new AniSearchService();
     voiceService = new VoiceService(true, 'en-US');
     validRegex = new RegExp(/(GET)(JAPANESE )?[A-Z0-9 ]+(EPISODE )\d+/);
-    anime_name = '';
-    episode_id = '';
-    choice = -1;
-    includeDub = true;
-    episodeOption = -1;
 
     constructor() { 
         super();
@@ -56,8 +51,8 @@ export default class VoiceSearch extends Component {
         }
 
         const episode_id = query.slice(query.indexOf("EPISODE") + "EPISODE".length);
-        this.anime_name = anime_name;
-        this.episode_id = episode_id;
+        this.animeSearchService.setAnimeName(anime_name);
+        this.animeSearchService.setEpisodeID(episode_id);
     }
 
     getAnimeFromDB = (query, includeDub) => {
@@ -66,11 +61,13 @@ export default class VoiceSearch extends Component {
         this.setState({
             progress: "LOADING"
         })
-        this.includeDub = includeDub;
+        this.animeSearchService.setIncludeDub(includeDub);
         this.props.passError('');
 
         this.animeSearchService.getAnimeFromDB(
-            this.anime_name, this.episode_id, includeDub
+            this.animeSearchService.getAnimeName(), 
+            this.animeSearchService.getEpisodeID(), 
+            this.animeSearchService.getIncludeDub()
         ).then((response) => {
             if (response.data.results) {
                 this.setState({
@@ -87,7 +84,7 @@ export default class VoiceSearch extends Component {
                 })
                 this.props.passError(response.data.err);
             }
-        }).catch((err) => {
+        }).catch(() => {
             this.setState({
                 progress: 'SEARCH',
             })
@@ -99,11 +96,13 @@ export default class VoiceSearch extends Component {
         this.setState({
             progress: "LOADING"
         });
-        this.choice = query;
         this.props.passError('');
 
         this.animeSearchService.getAnimeEpisode(
-            this.anime_name, this.episode_id, this.choice, this.includeDub
+            this.animeSearchService.getAnimeName(), 
+            this.animeSearchService.getEpisodeID(),
+            query,
+            this.animeSearchService.getIncludeDub()
         ).then((response) => {
             if (response.data.err) {
                 this.setState({
@@ -120,7 +119,7 @@ export default class VoiceSearch extends Component {
                     placeholder: 'Search for anime',
                 })
             }
-        }).catch((err) => {
+        }).catch(() => {
             this.setState({
                 progress: 'PICK',
             })
@@ -147,14 +146,13 @@ export default class VoiceSearch extends Component {
             }
         }
         else if (this.state.progress === 'PICK') {
-            const query = this.episodeOption;
-            const epID = parseInt(query);
+            const epID = this.animeSearchService.getAnimeOption();
 
             if (isNaN(epID) || epID < 0 || epID > this.state.animes.length) {
                 this.props.passError("Please pick a number from 1 to " + this.state.animes.length);
             }
             else {
-                this.getAnimeEpisode(this.episodeOption);
+                this.getAnimeEpisode(epID);
             }
         }
     }
@@ -170,13 +168,13 @@ export default class VoiceSearch extends Component {
                 this.setState({
                     searchQuery: this.state.animes[parseInt(q) - 1].name,
                 })   
-                this.episodeOption = q;
+                this.animeSearchService.setAnimeOption(parseInt(q));
             }
             else {
                 this.setState({
                     searchQuery: "",
                 })   
-                this.episodeOption = -1;
+                this.animeSearchService.setAnimeOption(-1);
             }
         }
     }
@@ -189,9 +187,9 @@ export default class VoiceSearch extends Component {
             animes: []
         });
 
-        this.anime_name = '',
-        this.episode_id = '',
-        this.choice = -1
+        this.animeSearchService.setAnimeName('');
+        this.animeSearchService.setEpisodeID('');
+        this.animeSearchService.setAnimeOption(-1);
 
         this.props.passError('');
     }
