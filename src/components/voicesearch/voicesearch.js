@@ -237,7 +237,7 @@ export default class VoiceSearch extends Component {
                                     color="white" 
                                     size="2x"/>
                             </button>
-                            <button onClick = { () => { 
+                            {/* <button onClick = { () => { 
                                 this.setResult("get konosuba episode 1");
                                 this.searchDB();
                             } }>
@@ -248,7 +248,7 @@ export default class VoiceSearch extends Component {
                                 this.searchDB();
                             } }>
                                 TEST CHOICE SAMPLE
-                            </button>
+                            </button> */}
                         </section>
                     ) : (
                         <section className="loading">
