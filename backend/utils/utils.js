@@ -4,8 +4,8 @@ function filterEpisodes(episodeList) {
     let index = 0;
 
     while (url === "") {
-        const sourceName = episodeList[index].name.toLowerCase();
-        if (sourceName === "vidcdn" || sourceName === "mp4upload") {
+        const sourceUrl = episodeList[index].url.toLowerCase();
+        if (sourceUrl.includes("vidstreaming")) {
             url = episodeList[index].url;
         }
 
