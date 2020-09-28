@@ -5,7 +5,7 @@ function filterEpisodes(episodeList) {
 
     while (url === "") {
         const sourceUrl = episodeList[index].url.toLowerCase();
-        if (sourceUrl.includes("vidstreaming")) {
+        if (sourceUrl.includes("gogo-stream")) {
             url = episodeList[index].url;
         }
 

@@ -4,7 +4,7 @@ const fs = require('fs');
 const cors = require('cors');
 const https = require('https');
 const anime = require('anime-scraper');
-const opt = JSON.parse(fs.readFileSync("./options.json", "utf8"));
+const opt = JSON.parse(fs.readFileSync(__dirname + "/options.json", "utf8"));
 const AnimeController = require('./controllers/asearch');
 
 const app = express();
