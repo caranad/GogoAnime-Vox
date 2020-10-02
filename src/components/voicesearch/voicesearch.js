@@ -70,13 +70,22 @@ export default class VoiceSearch extends Component {
             this.animeSearchService.getIncludeDub()
         ).then((response) => {
             if (response.data.results) {
-                this.setState({
-                    progress: 'PICK',
-                    placeholder: 'Pick an option #',
-                    searchQuery: '',
-                    animes: response.data.results
-                })
-                this.props.passError('');
+                if (response.data.results.indexOf("//gogo-stream") !== -1) {
+                    this.props.passData(response.data.results);
+                    this.setState({
+                        progress: 'SEARCH',
+                        searchQuery: '',
+                        placeholder: 'Search for anime',
+                    })
+                } else {
+                    this.setState({
+                        progress: 'PICK',
+                        placeholder: 'Pick an option #',
+                        searchQuery: '',
+                        animes: response.data.results
+                    })
+                    this.props.passError('');
+                }
             }
             else if (response.data.err) {
                 this.setState({
@@ -238,7 +247,7 @@ export default class VoiceSearch extends Component {
                                     size="2x"/>
                             </button>
                             {/* <button onClick = { () => { 
-                                this.setResult("get konosuba episode 1");
+                                this.setResult("get my neighbor totoro episode 1");
                                 this.searchDB();
                             } }>
                                 TEST SAMPLE
